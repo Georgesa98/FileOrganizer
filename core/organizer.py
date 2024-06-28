@@ -1,6 +1,6 @@
 import argparse
 from utils import path
-from methods import organize
+from methods import Organizer
 
 
 def parse_arguments():
@@ -55,7 +55,8 @@ def parse_arguments():
 def main():
     args = parse_arguments()
     dir = path(args.directory)
-    print(dir)
+    organizer = Organizer(dir)
+    organizer.organize()
 
 
 if __name__ == "__main__":
