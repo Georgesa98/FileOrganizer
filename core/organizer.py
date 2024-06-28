@@ -15,22 +15,15 @@ def parse_arguments():
         required=True,
     )
     parser.add_argument(
-        "-a",
-        "--all",
-        help="organize the whole directory",
-        required=False,
-        action="store_true",
-    )
-    parser.add_argument(
         "-i",
-        "--images",
+        "--image",
         help="organize images only in the directory",
         required=False,
         action="store_true",
     )
     parser.add_argument(
         "-v",
-        "--videos",
+        "--video",
         help="organize videos only in the directory",
         required=False,
         action="store_true",
@@ -49,6 +42,20 @@ def parse_arguments():
         required=False,
         action="store_true",
     )
+    parser.add_argument(
+        "-t",
+        "--text",
+        help="organize text only in the directory",
+        required=False,
+        action="store_true",
+    )
+    parser.add_argument(
+        "-p",
+        "--program",
+        help="organize programs only in the directory",
+        required=False,
+        action="store_true",
+    )
     return parser.parse_args()
 
 
@@ -56,7 +63,24 @@ def main():
     args = parse_arguments()
     dir = path(args.directory)
     organizer = Organizer(dir)
-    organizer.organize()
+    kwargs = args._get_kwargs()
+    kwargs.pop(0)
+    organize_all = True
+    for key, value in kwargs:
+        if value == True:
+            organize_all = False
+    if organize_all:
+        organizer.organize()
+    if args.image:
+        organizer.organizerPhotos()
+    if args.audio:
+        organizer.organizeAudio()
+    if args.compressed:
+        organizer.organizeCompressed()
+    if args.program:
+        organizer.organizeProgram()
+    if args.text:
+        organizer.organizeText()
 
 
 if __name__ == "__main__":
