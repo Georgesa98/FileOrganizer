@@ -1,2 +1,5 @@
 venv
 .vscode
+dist
+build
+file_organizer.egg-info

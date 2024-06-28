@@ -1,6 +1,6 @@
 import argparse
-from utils import path
-from methods import Organizer
+from core.utils import path
+from core.methods import Organizer
 
 
 def parse_arguments():
